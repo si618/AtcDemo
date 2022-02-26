@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Code demonstration for displaying and searching for [ATC classifications](https://www.who.int/tools/atc-ddd-toolkit/atc-classification)
+Code demonstration for displaying and searching [ATC classifications](https://www.who.int/tools/atc-ddd-toolkit/atc-classification)
 
 ## Credits
 

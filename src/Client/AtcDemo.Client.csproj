@@ -2,14 +2,15 @@
 
   <PropertyGroup>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;CS0436</NoWarn>
+    <NoWarn>1701;1702;CS0436;CS0227</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>1701;1702;CS0436</NoWarn>
+    <NoWarn>1701;1702;CS0436;CS0227</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\QuickGrid\QuickGrid.csproj" />
     <ProjectReference Include="..\Shared\AtcDemo.Shared.csproj" />
   </ItemGroup>
 

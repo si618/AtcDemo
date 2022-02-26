@@ -1,5 +1,6 @@
 namespace AtcDemo.Server;
 
+using System.Globalization;
 using AtcDemo.Shared;
 
 public static class AtcExtensions
@@ -24,15 +25,16 @@ public static class AtcExtensions
 
     public static AtcChemical ConvertFromRecord(this Atc.Chemical chemical)
     {
+        var textInfo = new CultureInfo("en-US", false).TextInfo;
         var doses = chemical.Doses.Select(c => new AtcDose()
         {
-            DefinedDailyDose = c.DailyDefinedDose,
-            AdministrationRoute = c.AdministrationRoute
+            DefinedDailyDose = Math.Round(c.DailyDefinedDose, 4, MidpointRounding.AwayFromZero),
+            AdministrationRoute = c.AdministrationRoute.Trim()
         });
         var result = new AtcChemical()
         {
             Code = chemical.Code,
-            Name = chemical.Name,
+            Name = textInfo.ToTitleCase(chemical.Name).Replace(" And ", " and "),
             Level1AnatomicalMainGroup = chemical.Levels.Level1AnatomicalMainGroup,
             Level2TherapeuticSubgroup = chemical.Levels.Level2TherapeuticSubgroup,
             Level3PharmacologicalSubgroup = chemical.Levels.Level3PharmacologicalSubgroup,

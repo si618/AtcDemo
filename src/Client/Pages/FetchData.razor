@@ -6,7 +6,7 @@
 
 <h1>ATC Demo</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p>Loads all ATC records via WebAPI in a single call.</p>
 
 @if (chemicals == null)
 {
@@ -19,6 +19,7 @@ else
             <tr>
                 <th>Code</th>
                 <th>Name</th>
+                <th>Daily Defined Dose</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,17 @@ else
                 <tr>
                     <td>@chemical.Code</td>
                     <td>@chemical.Name</td>
+                    <td>
+                        <table class="table">
+                            @foreach (var dose in chemical.Doses)
+                            {
+                                <tr>
+                                    <td>@dose.DailyDefinedDose</td>
+                                    <td>@dose.AdministrationRoute</td>
+                                </tr>
+                            }
+                        </table>
+                    </td>
                 </tr>
             }
         </tbody>
