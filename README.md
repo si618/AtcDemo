@@ -6,7 +6,7 @@ Code demonstration for displaying and searching [ATC classifications](https://ww
 
 ## Credits
 
-Inspired by Steve Sanderson's [Blaze Demo](https://github.com/SteveSandersonMS/BlazeOrbital.git) at [NDC Oslo](https://youtu.be/Rn8psTi8FBk) 🙇‍
+Inspired by Steve Sanderson's [Blazor Demo](https://github.com/SteveSandersonMS/BlazeOrbital.git) at [NDC Oslo](https://youtu.be/Rn8psTi8FBk) 🙇‍
 
 ## Install
 
