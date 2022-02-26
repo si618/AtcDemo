@@ -1,0 +1,12 @@
+# VS
+*.suo
+*.user
+.vs/
+
+# Build
+[Bb]in/
+[Oo]bj/
+
+# SQLite files
+*.db
+*.db-*

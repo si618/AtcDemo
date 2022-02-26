@@ -1,2 +1,60 @@
-# AtcDemo
-Code demonstration for display and searching of ATC classifications
+# ATC Demo
+
+## Purpose
+
+Code demonstration for displaying and searching for [ATC classifications](https://www.who.int/tools/atc-ddd-toolkit/atc-classification)
+
+## Credits
+
+Inspired by Steve Sanderson's [Blaze Demo](https://github.com/SteveSandersonMS/BlazeOrbital.git) at [NDC Oslo](https://youtu.be/Rn8psTi8FBk) 🙇‍
+
+## Install
+
+```shell
+> git --version
+git version 2.30.0.windows.2
+
+> git clone https://github.com/si618/AtcDemo.git
+Cloning into 'AtcDemo'...
+
+> cd .\AtcDemo\src
+```
+
+## Compile
+
+```shell
+> dotnet --version
+6.0.102
+
+> dotnet build
+Microsoft (R) Build Engine version 17.0.0+c9eb9dd64 for .NET
+...
+```
+
+## Run
+
+```shell
+> cd .\Server
+
+> dotnet run
+Building...
+[22:22:22 INF] Seeded 4,326 ATC records in 1,692ms
+[22:22:22 INF] Now listening on: https://localhost:7204
+...
+```
+
+## Points of interest
+
+- gRPC for comms
+- SQLite in browser
+- Blazor WebAssembly client + PWA
+- C# record types for DTOs (Hat-tip: [Ross Lovas](https://github.com/rosslovas) for static class wrapper)
+- NBGV (great for CI/CD pipelines and releases)
+- EditorConfig for `dotnet format` (mostly taken from roslyn + namespace at top)
+- File-scoped namespaces (awesome for saving horizontal whitespace)
+- Directory.Build.props (useful for nbgv & large apps)
+
+## TODO
+
+- Azure Pipelines or GitHub Actions for builds and deployment
+- Unit and browser tests

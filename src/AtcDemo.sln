@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtcDemo.Server", "Server\AtcDemo.Server.csproj", "{12F72A04-7799-4E4A-BC12-ED0BE6DC0328}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtcDemo.Client", "Client\AtcDemo.Client.csproj", "{D96117EE-59D4-49D6-AE63-116FDEF68CE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A2A55FAA-0492-4F25-B2D3-C6927DAE6200}"
+	ProjectSection(SolutionItems) = preProject
+		..\.editorconfig = ..\.editorconfig
+		..\.gitignore = ..\.gitignore
+		Directory.Build.props = Directory.Build.props
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+		..\version.json = ..\version.json
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtcDemo.UnitTests", "UnitTests\AtcDemo.UnitTests.csproj", "{6FFAA3E2-B4B8-46DF-A3F1-99651865A49B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickGrid", "QuickGrid\QuickGrid.csproj", "{D1227733-8271-473A-AEE3-456B0A8ECB2B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtcDemo.Shared", "Shared\AtcDemo.Shared.csproj", "{513FBBB9-45E5-4DBB-93B2-98C6E5B018B0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12F72A04-7799-4E4A-BC12-ED0BE6DC0328}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12F72A04-7799-4E4A-BC12-ED0BE6DC0328}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12F72A04-7799-4E4A-BC12-ED0BE6DC0328}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12F72A04-7799-4E4A-BC12-ED0BE6DC0328}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D96117EE-59D4-49D6-AE63-116FDEF68CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D96117EE-59D4-49D6-AE63-116FDEF68CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D96117EE-59D4-49D6-AE63-116FDEF68CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D96117EE-59D4-49D6-AE63-116FDEF68CE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FFAA3E2-B4B8-46DF-A3F1-99651865A49B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FFAA3E2-B4B8-46DF-A3F1-99651865A49B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FFAA3E2-B4B8-46DF-A3F1-99651865A49B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FFAA3E2-B4B8-46DF-A3F1-99651865A49B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1227733-8271-473A-AEE3-456B0A8ECB2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1227733-8271-473A-AEE3-456B0A8ECB2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1227733-8271-473A-AEE3-456B0A8ECB2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1227733-8271-473A-AEE3-456B0A8ECB2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{513FBBB9-45E5-4DBB-93B2-98C6E5B018B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{513FBBB9-45E5-4DBB-93B2-98C6E5B018B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{513FBBB9-45E5-4DBB-93B2-98C6E5B018B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{513FBBB9-45E5-4DBB-93B2-98C6E5B018B0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {13D1E4AE-EA5D-454B-A651-33F1216B5AD3}
+	EndGlobalSection
+EndGlobal

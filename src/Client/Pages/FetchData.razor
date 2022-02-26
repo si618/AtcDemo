@@ -1,0 +1,43 @@
+@page "/fetchdata"
+@using AtcDemo.Shared
+@inject HttpClient Http
+
+<PageTitle>ATC Demo</PageTitle>
+
+<h1>ATC Demo</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (chemicals == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var chemical in chemicals)
+            {
+                <tr>
+                    <td>@chemical.Code</td>
+                    <td>@chemical.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Atc.Chemical[]? chemicals;
+
+    protected override async Task OnInitializedAsync()
+    {
+        chemicals = await Http.GetFromJsonAsync<Atc.Chemical[]>("Atc");
+    }
+}
