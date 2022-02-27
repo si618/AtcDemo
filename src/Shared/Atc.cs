@@ -20,9 +20,9 @@ public static class Atc
     /// <summary>
     /// Each drug can have zero or more doses defined.
     /// </summary>
-    /// <param name="DailyDefinedDose"></param>
+    /// <param name="DefinedDailyDose"></param>
     /// <param name="AdministrationRoute"></param>
-    public record Dose(double DailyDefinedDose, string AdministrationRoute);
+    public record Dose(double DefinedDailyDose, string AdministrationRoute);
 
     /// <summary>
     /// The different groups associated with the drug.

@@ -10,7 +10,12 @@
 <SyncStatus />
 <AtcDetails Record="selectedAtcRecord" OnHide="@(() => { selectedAtcRecord = null; })" />
 
-@if (db is not null)
+@if (db is null)
+{
+<div class="toast" role="alert" aria-live="polite" aria-atomic="true" data-bs-delay="10000">
+  <div role="alert" aria-live="assertive" aria-atomic="true">No SQLite database found?</div>
+</div>}
+else
 {
     <div class="records-grid">
         <Grid Virtualize="true" Items="@GetFilteredAtcRecords()" ItemKey="@(x => x.Code)" ItemSize="35">
@@ -95,21 +100,6 @@
                 </ColumnOptions>
             </PropertyColumn>
 
-@*            <Grid class="ddd-grid" Virtualize="false" Items="@(x => x.D)" ItemKey="@(x => x.Code)" ItemSize="35">
-
-            </Grid>
-
-            <PropertyColumn Title="Stock" Property="@(x => x.Stock)" Format="N0" Align="Align.Right" Class="col-stock">
-                <ColumnOptions>
-                    <p>Min stock</p>
-                    <input type="range" @bind="minStock" @bind:event="oninput" min="0" max="50000" />
-                    <p>Max stock</p>
-                    <input type="range" @bind="maxStock" @bind:event="oninput" min="0" max="50000" />
-                </ColumnOptions>
-            </PropertyColumn>
-
-            <PropertyColumn Title="Administration Route" Property="@(x => x.PriceCents/100)" Class="col-route" />
-*@
         </Grid>
         <div class="status-bar">
             Showing @GetFilteredAtcRecords()?.Count().ToString("N0") items

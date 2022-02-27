@@ -15,7 +15,7 @@ public class AtcDataService : AtcRecordServiceBase
         _db = db;
     }
 
-    // Services gRPC calls
+    // gRPC
     public override async Task<AtcRecordReply> GetAtcRecords(AtcRecordRequest request, ServerCallContext context)
     {
         var chemicals = _db.Chemicals
@@ -31,7 +31,7 @@ public class AtcDataService : AtcRecordServiceBase
         return reply;
     }
 
-    // Services WebAPI calls
+    // WebAPI
     public IEnumerable<Atc.Chemical> GetAtcChemicals()
     {
         var chemicals = _db.Chemicals

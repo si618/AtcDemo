@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -49,8 +48,6 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <WasmBuildNative>true</WasmBuildNative>
-    <RunAotCompilation>true</RunAotCompilation>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <EmccExtraLDFlags>-s WARN_ON_UNDEFINED_SYMBOLS=0</EmccExtraLDFlags>
   </PropertyGroup>

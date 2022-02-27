@@ -28,7 +28,7 @@ public static class AtcExtensions
         var textInfo = new CultureInfo("en-US", false).TextInfo;
         var doses = chemical.Doses.Select(c => new AtcDose()
         {
-            DefinedDailyDose = Math.Round(c.DailyDefinedDose, 4, MidpointRounding.AwayFromZero),
+            DefinedDailyDose = Math.Round(c.DefinedDailyDose, 4, MidpointRounding.AwayFromZero),
             AdministrationRoute = c.AdministrationRoute.Trim()
         });
         var result = new AtcChemical()
