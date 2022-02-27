@@ -21,7 +21,8 @@ else
             <tr>
                 <th scope="col">Code</th>
                 <th scope="col">Name</th>
-                <th scope="col" colspan="2">Daily Defined Dose</th>
+                <th scope="col" class="text-end">Daily Defined Dose</th>
+                <th scope="col">Administration Route</th>
             </tr>
         </thead>
         <tbody>
@@ -30,17 +31,8 @@ else
                 <tr>
                     <td>@chemical.Code</td>
                     <td>@chemical.Name</td>
-                    <td>
-                        <table class="table">
-                            @foreach (var dose in chemical.Doses)
-                            {
-                                <tr>
-                                    <td>@dose.DailyDefinedDose</td>
-                                    <td>@dose.AdministrationRoute</td>
-                                </tr>
-                            }
-                        </table>
-                    </td>
+                    <td class="text-end">@string.Join(" / ", chemical.Doses.Select(d => d.DailyDefinedDose))</td>
+                    <td >@string.Join(" / ", chemical.Doses.Select(d => d.AdministrationRoute))</td>
                 </tr>
             }
         </tbody>

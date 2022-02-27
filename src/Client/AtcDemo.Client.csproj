@@ -21,6 +21,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Components.CustomElements" Version="0.1.0-alpha.21466.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
@@ -28,6 +30,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.2" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="6.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.2" />
     <PackageReference Include="Serilog" Version="2.10.0" />
   </ItemGroup>
@@ -37,12 +40,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\QuickGrid\QuickGrid.csproj" />
     <ProjectReference Include="..\Shared\AtcDemo.Shared.csproj" />
+    <ProjectReference Include="..\QuickGrid\QuickGrid.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <WasmBuildNative>true</WasmBuildNative>
+    <RunAotCompilation>true</RunAotCompilation>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EmccExtraLDFlags>-s WARN_ON_UNDEFINED_SYMBOLS=0</EmccExtraLDFlags>
+  </PropertyGroup>
+  <ItemGroup>
+    <NativeFileReference Include="Data\e_sqlite3.o" />
+  </ItemGroup>
 </Project>

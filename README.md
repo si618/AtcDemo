@@ -26,6 +26,10 @@ Cloning into 'AtcDemo'...
 > dotnet --version
 6.0.102
 
+> dotnet workload install wasm-tools
+...
+Successfully installed workload(s) wasm-tools.
+
 > dotnet build
 Microsoft (R) Build Engine version 17.0.0+c9eb9dd64 for .NET
 ...
@@ -49,12 +53,13 @@ Building...
 - SQLite in browser
 - Blazor WebAssembly client + PWA
 - C# record types for DTOs (Hat-tip: [Ross Lovas](https://github.com/rosslovas) for static class wrapper)
-- NBGV (great for CI/CD pipelines and releases)
-- EditorConfig for `dotnet format` (mostly taken from roslyn + namespace at top)
-- File-scoped namespaces (awesome for saving horizontal whitespace)
-- Directory.Build.props (useful for nbgv & large apps)
+- NBGV (for CI/CD pipelines and releases)
+- EditorConfig for `dotnet format` (mostly taken from roslyn + namespace at top of file)
+- File-scoped namespaces (for saving horizontal whitespace)
+- Directory.Build.props (for nbgv & large apps)
 
 ## TODO
 
-- Azure Pipelines or GitHub Actions for builds and deployment
+- Azure Pipelines or GitHub Actions for builds and deployment (dockerise server)
+- Add descriptions for ATC Level and DDD Administration Route codes
 - Unit and browser tests
