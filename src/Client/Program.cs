@@ -1,7 +1,5 @@
 using AtcDemo.Client;
 using AtcDemo.Client.Data;
-using AtcDemo.Shared;
-using Grpc.Net.Client.Web;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

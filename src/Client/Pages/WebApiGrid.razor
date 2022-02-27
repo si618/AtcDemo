@@ -1,0 +1,206 @@
+@page "/WebApiGrid"
+@using AtcDemo.Client.Data
+@using AtcDemo.Client.Pages.AtcRecords
+@using AtcDemo.Shared
+@using Microsoft.EntityFrameworkCore
+@using QuickGrid
+@inject HttpClient Http
+@*@attribute [Authorize]*@
+
+<PageTitle>ATC Records via WebAPI (Grid)</PageTitle>
+
+<h4 class="mb-4">ATC Records via WebAPI</h4>
+
+@if (chemicals is null)
+{
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+}
+else
+{
+	<div class="records-grid">
+		<Grid Virtualize="true" Items="@GetFilteredAtcRecords()" ItemKey="@(x => x.Code)" ItemSize="50">
+
+			<TemplateColumn Title="Code" SortBy="@(items => items.SortByAscending(x => x.Code))" Class="col-code">
+				<ChildContent>@context.Code</ChildContent>
+				<ColumnOptions>
+					<div class="container">
+						 <div class="row">
+							 <div class="col">
+								<p>Anatomical Main Group (@level1.Length)</p>
+								<select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level1" @onclick="@(() =>
+									{
+										level2 = Array.Empty<string>();
+										level3 = Array.Empty<string>();
+										level4 = Array.Empty<string>();
+										level5 = Array.Empty<string>();
+									})">
+									@foreach (var name in chemicals.Select(x => x.Levels.Level1AnatomicalMainGroup).Distinct())
+									{
+										<option>@name</option>
+									}
+								</select>
+							 </div>
+							 <div class="col">
+								<p>Therapeutic Subgroup (@level2.Length)</p>
+								<select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level2" @onclick="@(() =>
+									{
+										level3 = Array.Empty<string>();
+										level4 = Array.Empty<string>();
+										level5 = Array.Empty<string>();
+									})">
+									@foreach (var name in chemicals.Select(x => x.Levels.Level2TherapeuticSubgroup).Distinct())
+									{
+										<option>@name</option>
+									}
+								</select>
+							</div>
+							<div class="col">
+								<p>Pharmacological Subgroup (@level3.Length)</p>
+								<select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level3" @onclick="@(() =>
+									{
+										level4 = Array.Empty<string>();
+										level5 = Array.Empty<string>();
+									})">
+									@foreach (var name in chemicals.Select(x => x.Levels.Level3PharmacologicalSubgroup).Distinct())
+									{
+										<option>@name</option>
+									}
+								</select>
+							</div>
+							<div class="col">
+								<p>Chemical Subgroup (@level4.Length)</p>
+								<select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level4" @onclick="@(() =>
+									{
+										level5 = Array.Empty<string>();
+									})">
+									@foreach (var name in chemicals.Select(x => x.Levels.Level4ChemicalSubgroup).Distinct())
+									{
+										<option>@name</option>
+									}
+								</select>
+							</div>
+							 <div class="col">
+								<p>Chemical Substance (@level5.Length)</p>
+								<select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level5">
+									@foreach (var name in chemicals.Select(x => x.Levels.Level5ChemicalSubstance).Distinct())
+									{
+										<option>@name</option>
+									}
+								</select>
+							</div>
+							<div class="col">
+								<button class="bg-gray-200 px-5 py-1 mb-2" @onclick="@(() =>
+								{
+									level1 = Array.Empty<string>();
+									level2 = Array.Empty<string>();
+									level3 = Array.Empty<string>();
+									level4 = Array.Empty<string>();
+									level5 = Array.Empty<string>();
+								})">Reset</button>
+							</div>
+						</div>
+					</div>
+				</ColumnOptions>
+			</TemplateColumn>
+
+			<PropertyColumn Title="Name" Property="@(x => x.Name)" Class="col-name">
+				<ColumnOptions>
+					<input @bind="searchName" @bind:event="oninput" type="search" placeholder="Search..." />
+				</ColumnOptions>
+			</PropertyColumn>
+
+			<PropertyColumn Title="Defined Daily Dose" Align="Align.Right" Class="col-ddd"
+                Property="@(x => string.Join(" / ", x.Doses.Select(d => d.DefinedDailyDose)))">
+                <ColumnOptions>
+                    <p>Min Dose</p>
+                    <input type="range" @bind="minDose" @bind:event="oninput" min="0" max="100" />
+                    <p>Max Dose</p>
+                    <input type="range" @bind="maxDose" @bind:event="oninput" min="0" max="100" />
+                </ColumnOptions>
+			</PropertyColumn>
+
+            <PropertyColumn Class="col-ddd" Title="Administration Route"
+                Property="@(x => string.Join(" / ", x.Doses.Select(d => d.AdministrationRoute)))">
+			</PropertyColumn>
+
+		</Grid>
+@*		<div class="status-bar">
+			Showing @GetFilteredAtcRecords()?.Count().ToString("N0") items
+		</div>
+*@	</div>
+}
+
+@code {
+	private Atc.Chemical[]? chemicals;
+
+	[Parameter] public string? SearchName { get; set; }
+
+	string[] administrationRoute = Array.Empty<string>();
+	string[] level1 = Array.Empty<string>();
+	string[] level2 = Array.Empty<string>();
+	string[] level3 = Array.Empty<string>();
+	string[] level4 = Array.Empty<string>();
+	string[] level5 = Array.Empty<string>();
+	string searchName = string.Empty;
+	int minDose = 0, maxDose = 100;
+
+	IQueryable<Atc.Chemical>? GetFilteredAtcRecords()
+	{
+		if (chemicals is null)
+		{
+			return null;
+		}
+
+		var result = chemicals.Select(c => c);
+		if (!string.IsNullOrEmpty(searchName))
+		{
+			result = result.Where(x => x.Name.Contains(searchName, StringComparison.InvariantCultureIgnoreCase));
+		}
+		if (level1.Any())
+		{
+			result = result.Where(x => level1.Contains(x.Levels.Level1AnatomicalMainGroup));
+		}
+		if (level2.Any())
+		{
+			result = result.Where(x => level2.Contains(x.Levels.Level2TherapeuticSubgroup));
+		}
+		if (level3.Any())
+		{
+			result = result.Where(x => level3.Contains(x.Levels.Level3PharmacologicalSubgroup));
+		}
+		if (level4.Any())
+		{
+			result = result.Where(x => level4.Contains(x.Levels.Level4ChemicalSubgroup));
+		}
+		if (level5.Any())
+		{
+			result = result.Where(x => level5.Contains(x.Levels.Level5ChemicalSubstance));
+		}
+		if (minDose > 0)
+		{
+			result = result.Where(x => x.Doses.Any(d => d.DefinedDailyDose >= minDose));
+		}
+		if (maxDose > 0)
+		{
+			result = result.Where(x => x.Doses.Any(d => d.DefinedDailyDose <= maxDose));
+		}
+		if (administrationRoute.Any())
+		{
+			result = result.Where(x => x.Doses.Any(d => administrationRoute.Contains(d.AdministrationRoute)));
+		}
+
+		return result.AsQueryable();
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		chemicals = await Http.GetFromJsonAsync<Atc.Chemical[]>("Atc");
+	}
+
+	protected override void OnParametersSet()
+	{
+		searchName = SearchName ?? string.Empty;
+	}
+}

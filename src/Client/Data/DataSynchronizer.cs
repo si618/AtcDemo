@@ -4,7 +4,6 @@ using System.Data.Common;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using AtcDemo.Shared;
-using Google.Protobuf.Collections;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.JSInterop;
 using Serilog;
@@ -110,12 +109,16 @@ class DataSynchronizer
                 else
                 {
                     mostRecentUpdate = response.Chemicals.Last().ModifiedTicks;
-                    // TODO: Bulk insert much faster, but nice to figure out why SaveChanges borks
+                    // TODO: Bulk insert much faster
                     //db.Chemicals.AddRange(response.Chemicals);
                     //db.SaveChanges();
-                    BulkInsert(connection, response.Chemicals);
 
-                    s_log.Information("Saved {Count:N0} ATC records in {Elapsed:N0}ms",
+                    // TODO: SQLite is borking in browser :( 
+                    //BulkInsert(connection, response.Chemicals);
+                    //s_log.Information("Saved {Count:N0} ATC records in {Elapsed:N0}ms",
+                    //    db.Chemicals.Count(), stopwatch.ElapsedMilliseconds);
+
+                    s_log.Information("gRPC call featch {Count:N0} ATC records in {Elapsed:N0}ms",
                         db.Chemicals.Count(), stopwatch.ElapsedMilliseconds);
 
                     OnUpdate?.Invoke();
@@ -131,6 +134,42 @@ class DataSynchronizer
         {
             _isSynchronizing = false;
         }
+    }
+
+    // TODO: Workaround for SQLite error on browser
+    public async Task<AtcChemical[]> GetAtcRecords()
+    {
+        var records = new List<AtcChemical>();
+        try
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            SyncCompleted = 0;
+            SyncTotal = 0;
+
+            var request = new AtcRecordRequest
+            {
+                MaxCount = 10_000,
+                ModifiedSinceTicks = -1
+            };
+            var response = await _service.GetAtcRecordsAsync(request);
+            var syncRemaining = response.ModifiedCount - response.Chemicals.Count;
+            SyncCompleted += response.Chemicals.Count;
+            SyncTotal = SyncCompleted + syncRemaining;
+
+            records.AddRange(response.Chemicals);
+            s_log.Information("gRPC call featch {Count:N0} ATC records in {Elapsed:N0}ms",
+                records.Count, stopwatch.ElapsedMilliseconds);
+
+            OnUpdate?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            s_log.Error(ex, "Error while fetching data");
+            OnError?.Invoke(ex);
+        }
+        return records.OrderBy(c => c.Code).ToArray();
     }
 
     // TODO: Work out how to reuse bulk insert from SeedAtcData on server (in shared project?)

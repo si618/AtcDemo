@@ -1,18 +1,16 @@
-@page "/webApi"
+@page "/WebApiTable"
 @using AtcDemo.Shared
 @inject HttpClient Http
 
-<PageTitle>ATC Records via WebAPI</PageTitle>
+<PageTitle>ATC Records via WebAPI (Table)</PageTitle>
 
 <h4 class="mb-4">ATC Records via WebAPI</h4>
 
-<p>Loads all ATC records via
-    <a href="https://docs.microsoft.com/en-us/aspnet/core/web-api/?view=aspnetcore-6.0">WebAPI</a>
-    in a single call from a SQLite database stored on the server</p>
-
 @if (chemicals == null)
 {
-    <p><em>Loading...</em></p>
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
 }
 else
 {

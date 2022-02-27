@@ -1,4 +1,4 @@
-@page "/atcRecords"
+@page "/GrpcSqlite"
 @using AtcDemo.Client.Data
 @using AtcDemo.Shared
 @using Microsoft.EntityFrameworkCore
@@ -6,7 +6,13 @@
 @inject DataSynchronizer DataSynchronizer
 @implements IDisposable
 @*@attribute [Authorize]*@
-<PageTitle>ATC Records</PageTitle>
+<PageTitle>ATC Records from SQLite</PageTitle>
+
+<h4 class="mb-4">ATC Records from SQLite</h4>
+
+<p>[W.I.P] Fetches records using gRPC in batches of 500, adding to local SQLite database on browser
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API">IndexedDB</a>.</p>
+
 <SyncStatus />
 <AtcDetails Record="selectedAtcRecord" OnHide="@(() => { selectedAtcRecord = null; })" />
 

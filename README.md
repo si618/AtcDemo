@@ -60,6 +60,7 @@ Building...
 
 ## TODO
 
+- Figure out why SQLite is throwing an error (or wait for WebAssembly package)
 - Azure Pipelines or GitHub Actions for builds and deployment (dockerise server)
 - Add descriptions for ATC Level and DDD Administration Route codes
 - Unit and browser tests
