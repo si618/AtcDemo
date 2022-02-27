@@ -10,8 +10,10 @@
 
 <h4 class="mb-4">ATC Records from SQLite</h4>
 
-<p>[W.I.P] Fetches records using gRPC in batches of 500, adding to local SQLite database on browser
+<p>Fetches records using gRPC in batches of 500, adding to local SQLite database on browser
     <a href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API">IndexedDB</a>.</p>
+
+<p>[W.I.P] Writing to the SQLite database is not working at the moment, see console log for details.</p>
 
 <SyncStatus />
 <AtcDetails Record="selectedAtcRecord" OnHide="@(() => { selectedAtcRecord = null; })" />

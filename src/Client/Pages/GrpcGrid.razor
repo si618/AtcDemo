@@ -115,9 +115,9 @@ else
 			<PropertyColumn Title="Defined Daily Dose" Align="Align.Right" Class="col-ddd"
                 Property="@(x => string.Join(" / ", x.Doses.Select(d => d.DefinedDailyDose)))">
                 <ColumnOptions>
-                    <p>Min Dose</p>
+                    <p>Min Dose (@minDose)</p>
                     <input type="range" @bind="minDose" @bind:event="oninput" min="0" max="100" />
-                    <p>Max Dose</p>
+                    <p>Max Dose (@maxDose)</p>
                     <input type="range" @bind="maxDose" @bind:event="oninput" min="0" max="100" />
                 </ColumnOptions>
 			</PropertyColumn>
