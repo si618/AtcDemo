@@ -126,10 +126,10 @@ else
 			</PropertyColumn>
 
 		</Grid>
-@*		<div class="status-bar">
+		<div class="status-bar">
 			Showing @GetFilteredAtcRecords()?.Count().ToString("N0") items
 		</div>
-*@	</div>
+	</div>
 }
 
 @code {
@@ -182,7 +182,7 @@ else
 		{
 			result = result.Where(x => x.Doses.Any(d => d.DefinedDailyDose >= minDose));
 		}
-		if (maxDose > 0)
+		if (maxDose < 100)
 		{
 			result = result.Where(x => x.Doses.Any(d => d.DefinedDailyDose <= maxDose));
 		}
