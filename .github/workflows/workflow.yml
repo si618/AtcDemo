@@ -3,19 +3,19 @@ name: Build and deploy
 on:
   push:
     branches:
-      - main
+      - 'main'
   pull_request:
     branches:
       - '*'
 env:
-  AZURE_WEBAPP_NAME: atc-demo
-  AZURE_WEBAPP_PACKAGE_PATH: '.\src\Server'
+  AZURE_WEBAPP_NAME: 'atc-demo'
+  APP_OUTPUT_PATH: './src/Server/app/${{ env.AZURE_WEBAPP_NAME }}'
   DOTNET_VERSION: '6.0.x'
 # TODO:   AZURE_WEBAPP_PUBLISH_PROFILE
 
 defaults:
   run:
-    working-directory: src
+    working-directory: 'src'
 
 jobs:
   build-and-deploy:
@@ -31,7 +31,7 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }} 
 
-      - name: Version
+      - name: Run NBGV
         id: version
         uses: dotnet/nbgv@master
         with:
@@ -49,11 +49,11 @@ jobs:
 
       - name: Run dotnet test
         id: test
-        run: dotnet test
+        run: dotnet test --configuration Release
       
       - name: Run dotnet publish
         id: publish
-        run: dotnet publish -c Release -o ${{ env.AZURE_WEBAPP_NAME }}
+        run: dotnet publish --configuration Release --output ${{ env.APP_OUTPUT_PATH }}
      
       # TODO: Deploy to Azure Web apps
       #- name: 'Run Azure webapp deploy action using publish profile credentials'
@@ -62,4 +62,4 @@ jobs:
       #  with: 
       #    app-name: ${{ env.AZURE_WEBAPP_NAME }}
       #    publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }}
-      #    package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.AZURE_WEBAPP_NAME }}'
+      #    package: '${{ env.APP_OUTPUT_PATH }}'
