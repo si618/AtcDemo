@@ -53,7 +53,9 @@ jobs:
       
       - name: Run dotnet publish
         id: publish
-        run: dotnet publish --configuration Release --output ${{ env.APP_OUTPUT_PATH }}
+        run: |
+          cd ./Server
+          dotnet publish --configuration Release --output ${{ env.APP_OUTPUT_PATH }}
      
       # TODO: Deploy to Azure Web apps
       #- name: 'Run Azure webapp deploy action using publish profile credentials'
