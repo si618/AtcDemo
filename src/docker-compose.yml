@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  atc-demo:
+    environment:
+      - ASPNETCORE_URLS=http://+:20222
+    image: atc-demo
+    ports: 
+      - 20222:20222
+    build:
+      context: .
+      dockerfile: Dockerfile
