@@ -24,7 +24,7 @@ Cloning into 'AtcDemo'...
 
 ```shell
 > dotnet --version
-6.0.102
+6.0.200
 
 > dotnet workload install wasm-tools
 ...
