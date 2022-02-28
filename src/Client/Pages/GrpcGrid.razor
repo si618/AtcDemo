@@ -29,7 +29,7 @@ else
 					<div class="container">
 						 <div class="row">
 							 <div class="col">
-								<p>Anatomical Main Group (@level1.Length)</p>
+								<p class="small">Anatomical Main Group (@level1.Length)</p>
 								<select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level1" @onclick="@(() =>
 									{
 										level2 = Array.Empty<string>();
@@ -44,7 +44,7 @@ else
 								</select>
 							 </div>
 							 <div class="col">
-								<p>Therapeutic Subgroup (@level2.Length)</p>
+								<p class="small">Therapeutic Subgroup (@level2.Length)</p>
 								<select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level2" @onclick="@(() =>
 									{
 										level3 = Array.Empty<string>();
@@ -58,7 +58,7 @@ else
 								</select>
 							</div>
 							<div class="col">
-								<p>Pharmacological Subgroup (@level3.Length)</p>
+								<p class="small">Pharmacological Subgroup (@level3.Length)</p>
 								<select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level3" @onclick="@(() =>
 									{
 										level4 = Array.Empty<string>();
@@ -71,7 +71,7 @@ else
 								</select>
 							</div>
 							<div class="col">
-								<p>Chemical Subgroup (@level4.Length)</p>
+								<p class="small">Chemical Subgroup (@level4.Length)</p>
 								<select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level4" @onclick="@(() =>
 									{
 										level5 = Array.Empty<string>();
@@ -83,7 +83,7 @@ else
 								</select>
 							</div>
 							 <div class="col">
-								<p>Chemical Substance (@level5.Length)</p>
+								<p class="small">Chemical Substance (@level5.Length)</p>
 								<select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level5">
 									@foreach (var name in chemicals.Select(x => x.Level5ChemicalSubstance).Distinct())
 									{
