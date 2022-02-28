@@ -30,7 +30,6 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="6.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.2" />
     <PackageReference Include="Serilog" Version="2.10.0" />
   </ItemGroup>
 
@@ -48,10 +47,14 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <EmccExtraLDFlags>-s WARN_ON_UNDEFINED_SYMBOLS=0</EmccExtraLDFlags>
+    <!--<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EmccExtraLDFlags>-s WARN_ON_UNDEFINED_SYMBOLS=0</EmccExtraLDFlags>-->
   </PropertyGroup>
   <ItemGroup>
+    <!-- TODO: Ignore until SQLite publishes WebAssembly package or figure out why inserts are failing -->
+    <!--<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.2" />-->
     <!--<NativeFileReference Include="Data\e_sqlite3.o" />-->
+    <Compile Remove="Properties\NativeMethods.cs" />
+    <None Remove="Data\e_sqlite3.o" />
   </ItemGroup>
 </Project>

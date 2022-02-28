@@ -31,8 +31,10 @@ public static class AtcRecordServices
 
     public static void AddAtcClientDbContext(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddDbContextFactory<AtcClientDbContext>(
-            options => options.UseSqlite($"Filename={DataSynchronizer.SqliteDbFilename}"));
+        // TODO: Restore once SQLite working in browser
+        //serviceCollection.AddDbContextFactory<AtcClientDbContext>(
+        //    options => options.UseSqlite($"Filename={DataSynchronizer.SqliteDbFilename}"));
+        serviceCollection.AddDbContextFactory<AtcClientDbContext>();
         serviceCollection.AddScoped<DataSynchronizer>();
     }
 }

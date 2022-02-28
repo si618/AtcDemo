@@ -13,7 +13,7 @@
 <p>Fetches records using gRPC in batches of 500, adding to local SQLite database on browser
     <a href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API">IndexedDB</a>.</p>
 
-<p>[W.I.P] Writing to the SQLite database is not working at the moment, see console log for details.</p>
+<p>[W.I.P] Writing to the SQLite database is not working at the moment.</p>
 
 <SyncStatus />
 <AtcDetails Record="selectedAtcRecord" OnHide="@(() => { selectedAtcRecord = null; })" />
@@ -37,7 +37,7 @@ else
                     @context.Level5ChemicalSubstance /
                 </ChildContent>
                 <ColumnOptions>
-                    <p>Level 1 Anatomical Main Group (@level1.Length)</p>
+                    <p class="small">Level 1 Anatomical Main Group (@level1.Length)</p>
                     <select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level1" @onclick="@(() =>
                         {
                             level2 = Array.Empty<string>();
@@ -50,7 +50,7 @@ else
                             <option>@name</option>
                         }
                     </select>
-                    <p>Level 2 Therapeutic Subgroup (@level2.Length)</p>
+                    <p class="small">Level 2 Therapeutic Subgroup (@level2.Length)</p>
                     <select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level2" @onclick="@(() =>
                         {
                             level3 = Array.Empty<string>();
@@ -62,7 +62,7 @@ else
                             <option>@name</option>
                         }
                     </select>
-                    <p>Level 3 Pharmacological Subgroup (@level3.Length)</p>
+                    <p class="small">Level 3 Pharmacological Subgroup (@level3.Length)</p>
                     <select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level3" @onclick="@(() =>
                         {
                             level4 = Array.Empty<string>();
@@ -73,7 +73,7 @@ else
                             <option>@name</option>
                         }
                     </select>
-                    <p>Level 4 Chemical Subgroup (@level4.Length)</p>
+                    <p class="small">Level 4 Chemical Subgroup (@level4.Length)</p>
                     <select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level4" @onclick="@(() =>
                         {
                             level5 = Array.Empty<string>();
@@ -83,7 +83,7 @@ else
                             <option>@name</option>
                         }
                     </select>
-                    <p>Level 5 Chemical Substance (@level5.Length)</p>
+                    <p class="small">Level 5 Chemical Substance (@level5.Length)</p>
                     <select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level5">
                         @foreach (var name in db.Chemicals.Select(x => x.Level5ChemicalSubstance).Distinct())
                         {
@@ -137,7 +137,9 @@ else
             return null;
         }
 
-        var result = db.Chemicals.AsNoTracking().AsQueryable();
+        // TODO: Restore once SQLite working in browser
+        //var result = db.Chemicals.AsNoTracking().AsQueryable();
+        var result = new List<AtcChemical>().AsQueryable();
         if (!string.IsNullOrEmpty(searchName))
         {
             result = result.Where(x => EF.Functions.Like(x.Name, searchName.Replace("%", "\\%") + "%", "\\"));
