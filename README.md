@@ -61,7 +61,8 @@ Building...
 ## TODO
 
 - Figure out why SQLite is throwing an error (or wait for WebAssembly package)
-- Azure Pipelines or GitHub Actions for builds and deployment (dockerise server)
+- Work out where to deploy server (Azure web apps?)
+- Fix docker port mapping issue (set up environment variables)
 - Add descriptions for ATC Level and DDD Administration Route codes
 - Add units of measurement for DefinedDailyDose to ATC.json
 - Unit and browser tests
