@@ -1,0 +1,64 @@
+name: Build and deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '*'
+env:
+  AZURE_WEBAPP_NAME: atc-demo
+  AZURE_WEBAPP_PACKAGE_PATH: '.\src\Server'
+  DOTNET_VERSION: '6.0.x'
+# TODO:   AZURE_WEBAPP_PUBLISH_PROFILE
+
+defaults:
+  run:
+    working-directory: src
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0 # avoid shallow clone so nbgv can do its work.      
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }} 
+
+      - name: Version
+        id: version
+        uses: dotnet/nbgv@master
+        with:
+          setAllVars: true
+      - run: echo 'VERSION = $NBGV_Version'
+
+      - name: Run dotnet build
+        id: build
+        run: dotnet build --configuration Release
+
+      - name: Run dotnet format
+        id: format
+        run: dotnet format --verbosity diagnostic --verify-no-changes
+
+      - name: Run dotnet test
+        id: test
+        run: dotnet test
+      
+      - name: Run dotnet publish
+        id: publish
+        run: dotnet publish -c Release -o ${{ env.AZURE_WEBAPP_NAME }}
+     
+      # TODO: Deploy to Azure Web apps
+      #- name: 'Run Azure webapp deploy action using publish profile credentials'
+      #  id: deploy
+      #  uses: azure/webapps-deploy@v2
+      #  with: 
+      #    app-name: ${{ env.AZURE_WEBAPP_NAME }}
+      #    publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }}
+      #    package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/${{ env.AZURE_WEBAPP_NAME }}'
