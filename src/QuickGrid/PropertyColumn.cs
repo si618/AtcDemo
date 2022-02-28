@@ -1,8 +1,8 @@
-﻿using System.Linq.Expressions;
+namespace QuickGrid;
+
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using QuickGrid.Infrastructure;
-
-namespace QuickGrid;
 
 public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>
 {

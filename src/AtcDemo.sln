@@ -12,9 +12,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\.editorconfig = ..\.editorconfig
 		..\.gitignore = ..\.gitignore
 		Directory.Build.props = Directory.Build.props
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
 		..\LICENSE = ..\LICENSE
 		..\README.md = ..\README.md
 		..\version.json = ..\version.json
+		..\.github\workflows\workflow.yml = ..\.github\workflows\workflow.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtcDemo.UnitTests", "UnitTests\AtcDemo.UnitTests.csproj", "{6FFAA3E2-B4B8-46DF-A3F1-99651865A49B}"

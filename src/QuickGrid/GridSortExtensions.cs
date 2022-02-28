@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
-
 namespace QuickGrid;
+
+using System.Linq.Expressions;
 
 public static class GridSortExtensions
 {
@@ -14,8 +14,8 @@ public static class GridSortExtensions
 public struct SortBy<T>
 {
     private int _count;
-    private Func<IQueryable<T>, bool, IOrderedQueryable<T>> _first;
-    private Func<IOrderedQueryable<T>, bool, IOrderedQueryable<T>>[] _then = new Func<IOrderedQueryable<T>, bool, IOrderedQueryable<T>>[10];
+    private readonly Func<IQueryable<T>, bool, IOrderedQueryable<T>> _first;
+    private readonly Func<IOrderedQueryable<T>, bool, IOrderedQueryable<T>>[] _then = new Func<IOrderedQueryable<T>, bool, IOrderedQueryable<T>>[10];
 
     internal SortBy(Func<IQueryable<T>, bool, IOrderedQueryable<T>> first)
     {

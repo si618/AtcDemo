@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-
 namespace QuickGrid.Infrastructure;
+
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
 public abstract class ColumnBase<TGridItem> : ComponentBase
 {
-    private readonly static RenderFragment<TGridItem> EmptyChildContent = _ => builder => { };
+    private static readonly RenderFragment<TGridItem> EmptyChildContent = _ => builder => { };
 
     [CascadingParameter] internal Grid<TGridItem>.AddColumnCallback AddColumn { get; set; } = default!;
 

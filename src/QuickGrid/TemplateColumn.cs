@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
-using QuickGrid.Infrastructure;
-
 namespace QuickGrid;
+
+using Microsoft.AspNetCore.Components;
+using QuickGrid.Infrastructure;
 
 public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>
 {
-    private readonly static RenderFragment<TGridItem> EmptyChildContent = _ => builder => { };
+    private static readonly RenderFragment<TGridItem> EmptyChildContent = _ => builder => { };
 
     [Parameter] public RenderFragment<TGridItem> ChildContent { get; set; } = EmptyChildContent;
     [Parameter] public Func<IQueryable<TGridItem>, SortBy<TGridItem>>? SortBy { get; set; }
