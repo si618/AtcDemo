@@ -9,7 +9,7 @@ on:
       - '*'
 env:
   AZURE_WEBAPP_NAME: 'atc-demo'
-  APP_OUTPUT_PATH: './src/Server/app/${{ env.AZURE_WEBAPP_NAME }}'
+  APP_OUTPUT_PATH: './src/Server/app/atc-demo'
   DOTNET_VERSION: '6.0.x'
 # TODO:   AZURE_WEBAPP_PUBLISH_PROFILE
 
