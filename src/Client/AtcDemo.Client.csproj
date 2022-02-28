@@ -52,6 +52,6 @@
     <EmccExtraLDFlags>-s WARN_ON_UNDEFINED_SYMBOLS=0</EmccExtraLDFlags>
   </PropertyGroup>
   <ItemGroup>
-    <NativeFileReference Include="Data\e_sqlite3.o" />
+    <!--<NativeFileReference Include="Data\e_sqlite3.o" />-->
   </ItemGroup>
 </Project>
