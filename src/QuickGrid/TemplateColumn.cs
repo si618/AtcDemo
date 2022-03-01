@@ -5,9 +5,9 @@ using QuickGrid.Infrastructure;
 
 public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>
 {
-    private static readonly RenderFragment<TGridItem> EmptyChildContent = _ => builder => { };
+    private static readonly RenderFragment<TGridItem> s_emptyChildContent = _ => builder => { };
 
-    [Parameter] public RenderFragment<TGridItem> ChildContent { get; set; } = EmptyChildContent;
+    [Parameter] public RenderFragment<TGridItem> ChildContent { get; set; } = s_emptyChildContent;
     [Parameter] public Func<IQueryable<TGridItem>, SortBy<TGridItem>>? SortBy { get; set; }
 
     protected override void OnParametersSet()

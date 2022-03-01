@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 public abstract class ColumnBase<TGridItem> : ComponentBase
 {
-    private static readonly RenderFragment<TGridItem> EmptyChildContent = _ => builder => { };
+    private static readonly RenderFragment<TGridItem> s_emptyChildContent = _ => builder => { };
 
     [CascadingParameter] internal Grid<TGridItem>.AddColumnCallback AddColumn { get; set; } = default!;
 
@@ -16,11 +16,11 @@ public abstract class ColumnBase<TGridItem> : ComponentBase
 
     internal RenderFragment HeaderContent { get; }
 
-    protected internal RenderFragment<TGridItem> CellContent { get; protected set; } = EmptyChildContent;
+    protected internal RenderFragment<TGridItem> CellContent { get; protected set; } = s_emptyChildContent;
 
     public ColumnBase()
     {
-        HeaderContent = __builder => __builder.AddContent(0, Title);
+        HeaderContent = builder => builder.AddContent(0, Title);
     }
 
     internal virtual bool CanSort => false;

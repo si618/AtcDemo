@@ -24,10 +24,10 @@ public struct SortBy<T>
     }
 
     public static SortBy<T> Ascending<U>(Expression<Func<T, U>> expression)
-        => new SortBy<T>((queryable, asc) => asc ? queryable.OrderBy(expression) : queryable.OrderByDescending(expression));
+        => new((queryable, asc) => asc ? queryable.OrderBy(expression) : queryable.OrderByDescending(expression));
 
     public static SortBy<T> Descending<U>(Expression<Func<T, U>> expression)
-        => new SortBy<T>((queryable, asc) => asc ? queryable.OrderByDescending(expression) : queryable.OrderBy(expression));
+        => new((queryable, asc) => asc ? queryable.OrderByDescending(expression) : queryable.OrderBy(expression));
 
     public SortBy<T> ThenAscending<U>(Expression<Func<T, U>> expression)
     {
