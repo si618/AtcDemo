@@ -8,7 +8,9 @@ public static class AtcExtensions
     public static Atc.Chemical ConvertFromProtobuf(this AtcChemical chemical)
     {
         var doses = chemical.Doses.Select(c => new Atc.Dose(
-            c.DefinedDailyDose, c.AdministrationRoute));
+            c.DefinedDailyDose,
+            c.AdministrationRoute,
+            c.Unit));
         var level = new Atc.Levels(
             chemical.Level1AnatomicalMainGroup,
             chemical.Level2TherapeuticSubgroup,
@@ -28,8 +30,9 @@ public static class AtcExtensions
         var textInfo = new CultureInfo("en-US", false).TextInfo;
         var doses = chemical.Doses.Select(c => new AtcDose()
         {
-            DefinedDailyDose = Math.Round(c.DefinedDailyDose, 4, MidpointRounding.AwayFromZero),
-            AdministrationRoute = c.AdministrationRoute.Trim()
+            DefinedDailyDose = Math.Round(c.DefinedDailyDose, 5, MidpointRounding.AwayFromZero),
+            AdministrationRoute = c.AdministrationRoute,
+            Unit = c.Unit
         });
         var result = new AtcChemical()
         {

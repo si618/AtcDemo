@@ -22,7 +22,7 @@ public static class Atc
     /// </summary>
     /// <param name="DefinedDailyDose"></param>
     /// <param name="AdministrationRoute"></param>
-    public record Dose(double DefinedDailyDose, string AdministrationRoute);
+    public record Dose(double DefinedDailyDose, string AdministrationRoute, string Unit);
 
     /// <summary>
     /// The different groups associated with the drug.

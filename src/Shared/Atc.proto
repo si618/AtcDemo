@@ -33,4 +33,5 @@ message AtcDose {
     int32 chemicalId = 2;
     double definedDailyDose = 3;
     string administrationRoute = 4;
+    string unit = 5;
 }

@@ -2,7 +2,6 @@ namespace AtcDemo.Client.Data;
 
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
-using Microsoft.EntityFrameworkCore;
 using static AtcDemo.Shared.AtcRecordService;
 
 public static class AtcRecordServices
