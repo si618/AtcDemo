@@ -27,11 +27,15 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.Razor" Version="6.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="6.0.0" />
     <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.0.7" />
+    <PackageReference Include="Uno.SQLitePCLRaw.provider.wasm" Version="3.1.1" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.0.4" IncludeAssets="none" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,15 +51,4 @@
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <!--<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <EmccExtraLDFlags>-s WARN_ON_UNDEFINED_SYMBOLS=0</EmccExtraLDFlags>-->
-  </PropertyGroup>
-  <ItemGroup>
-    <!-- TODO: Ignore until SQLite publishes WebAssembly package or figure out why inserts are failing -->
-    <!--<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.2" />-->
-    <!--<NativeFileReference Include="Data\e_sqlite3.o" />-->
-    <Compile Remove="Properties\NativeMethods.cs" />
-    <None Remove="Data\e_sqlite3.o" />
-  </ItemGroup>
 </Project>

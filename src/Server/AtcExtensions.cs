@@ -38,6 +38,7 @@ public static class AtcExtensions
         {
             Code = chemical.Code,
             Name = textInfo.ToTitleCase(chemical.Name).Replace(" And ", " and "),
+            ModifiedTicks = DateTime.UtcNow.Ticks,
             Level1AnatomicalMainGroup = chemical.Levels.Level1AnatomicalMainGroup,
             Level2TherapeuticSubgroup = chemical.Levels.Level2TherapeuticSubgroup,
             Level3PharmacologicalSubgroup = chemical.Levels.Level3PharmacologicalSubgroup,

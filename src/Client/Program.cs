@@ -4,7 +4,11 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+// TODO: Swap out for Serilog
 builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
+
+SQLitePCL.Batteries_V2.Init();
+
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.RegisterAsCustomElement<App>("blazor-app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
@@ -18,14 +22,9 @@ builder.Services
     "AtcDemo.ServerAPI",
         client => client.BaseAddress = new Uri(backendOrigin));
 
-
 // gRPC-Web client with(out) auth
 builder.Services.AddAtcRecordClient((services, options) =>
 {
-    //var handler = services.GetRequiredService<HttpClientHandler>();
-    //handler.ConfigureHandler(new[] { backendOrigin });
-    //handler.InnerHandler = new HttpClientHandler();
-
     options.BaseUri = backendOrigin;
     options.MessageHandler = new HttpClientHandler();
 });

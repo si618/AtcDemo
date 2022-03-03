@@ -137,9 +137,7 @@ else
             return null;
         }
 
-        // TODO: Restore once SQLite working in browser
-        //var result = db.Chemicals.AsNoTracking().AsQueryable();
-        var result = new List<AtcChemical>().AsQueryable();
+        var result = db.Chemicals.AsNoTracking().AsQueryable();
         if (!string.IsNullOrEmpty(searchName))
         {
             result = result.Where(x => EF.Functions.Like(x.Name, searchName.Replace("%", "\\%") + "%", "\\"));

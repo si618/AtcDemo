@@ -2,6 +2,7 @@ namespace AtcDemo.Client.Data;
 
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
+using Microsoft.EntityFrameworkCore;
 using static AtcDemo.Shared.AtcRecordService;
 
 public static class AtcRecordServices
@@ -30,9 +31,8 @@ public static class AtcRecordServices
 
     public static void AddAtcClientDbContext(this IServiceCollection serviceCollection)
     {
-        // TODO: Restore once SQLite working in browser
-        //serviceCollection.AddDbContextFactory<AtcClientDbContext>(
-        //    options => options.UseSqlite($"Filename={DataSynchronizer.SqliteDbFilename}"));
+        var serviceCollection1 = serviceCollection.AddDbContextFactory<AtcClientDbContext>(
+            options => options.UseSqlite($"Filename={DataSynchronizer.SqliteDbFilename}"));
         serviceCollection.AddDbContextFactory<AtcClientDbContext>();
         serviceCollection.AddScoped<DataSynchronizer>();
     }
