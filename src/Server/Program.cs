@@ -16,6 +16,8 @@ builder.Host.UseSerilog((ctx, logger) => logger
     .Enrich.FromLogContext()
     .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}"));
 
+SQLitePCL.Batteries_V2.Init();
+
 // Add services to the container
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services
