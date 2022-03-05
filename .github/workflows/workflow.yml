@@ -31,6 +31,10 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }} 
 
+      # TODO: Remove once fixed: https://github.com/dotnet/format/issues/1519
+      - name: Install dotnet format
+        run: dotnet tool install -g dotnet-format --version "6.*" --add-source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet6/nuget/v3/index.json
+
       - name: Run NBGV
         id: version
         uses: dotnet/nbgv@master
@@ -42,10 +46,9 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Run dotnet format
-        # Remove once fixed: https://github.com/dotnet/format/issues/1521
-        continue-on-error: true
         id: format
-        run: dotnet format --verbosity diagnostic --verify-no-changes
+        # TODO: Rename to dotnet format once #1519 fixed
+        run: dotnet-format --verbosity diagnostic --verify-no-changes
 
       - name: Run dotnet test
         id: test
