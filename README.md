@@ -6,7 +6,9 @@ Experimental code demonstration for displaying and searching [ATC classification
 
 ## Credits
 
-Inspired by Steve Sanderson's [Blazor Demo](https://github.com/SteveSandersonMS/BlazeOrbital.git) at [NDC Oslo](https://youtu.be/Rn8psTi8FBk) 🙇‍
+- Inspired by Steve Sanderson's [Blazor Demo](https://github.com/SteveSandersonMS/BlazeOrbital.git) at [NDC Oslo](https://youtu.be/Rn8psTi8FBk) 🙇‍
+- Bioportal for the [ATC classifications](https://bioportal.bioontology.org/ontologies/ATC?p=summary)
+- [Ross Lovas](https://github.com/rosslovas) for the idea of using a static class around C# record types
 
 ## Install
 
@@ -52,7 +54,7 @@ Building...
 - gRPC for comms
 - SQLite in browser
 - Blazor WebAssembly client + PWA
-- C# record types for DTOs (Hat-tip: [Ross Lovas](https://github.com/rosslovas) for static class wrapper)
+- C# record types for DTOs
 - NBGV (for CI/CD pipelines and releases)
 - EditorConfig for `dotnet format` (mostly taken from roslyn + namespace at top of file)
 - File-scoped namespaces (for saving horizontal whitespace)
