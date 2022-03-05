@@ -14,8 +14,8 @@ class DataSynchronizer
 {
     private static readonly ILogger s_log = Log.ForContext(typeof(DataSynchronizer));
 
-    public const string SqliteDbFilename = "atc.db";
-    public const int FetchMaxCount = 500;
+    public const string SqliteDbFilename = ":memory:"; //"ATC.db";
+    public const int FetchMaxCount = 1_000;
 
     private readonly Task _firstTimeSetupTask;
     private readonly IDbContextFactory<AtcClientDbContext> _dbContextFactory;
