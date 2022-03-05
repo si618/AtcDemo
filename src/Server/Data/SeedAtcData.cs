@@ -30,7 +30,7 @@ public static class SeedAtcData
         stopwatch.Start();
 
         var dir = Path.GetDirectoryName(typeof(SeedAtcData).Assembly.Location)!;
-        var file = Path.Combine(dir, "Data", "Atc.json")!;
+        var file = Path.Combine(dir, "Data", "ATC.json")!;
         if (!File.Exists(file))
         {
             throw new FileNotFoundException("File not found", file);
