@@ -4,9 +4,8 @@ using AtcDemo.Server.Data;
 using AtcDemo.Shared;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
-using static AtcDemo.Shared.AtcRecordService;
 
-public class AtcDataService : AtcRecordServiceBase
+public class AtcDataService : AtcRecordService.AtcRecordServiceBase
 {
     private readonly AtcDbContext _db;
 
