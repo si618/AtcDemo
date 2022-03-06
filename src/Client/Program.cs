@@ -22,7 +22,7 @@ builder.Services
     "AtcDemo.ServerAPI",
         client => client.BaseAddress = new Uri(backendOrigin));
 
-// gRPC-Web client with(out) auth
+// gRPC-Web client without auth
 builder.Services.AddAtcClassificationClient((services, options) =>
 {
     options.BaseUri = backendOrigin;

@@ -5,12 +5,11 @@
 @using QuickGrid
 @inject DataSynchronizer DataSynchronizer
 @implements IDisposable
-@*@attribute [Authorize]*@
-<PageTitle>ATC Records from SQLite</PageTitle>
+<PageTitle>ATC classifications from SQLite</PageTitle>
 
-<h4 class="mb-4">ATC Records from SQLite</h4>
+<h4 class="mb-4">ATC classifications from SQLite</h4>
 
-<p>Fetches records using gRPC in batches of 500, adding to local SQLite database on browser
+<p>Fetches records using gRPC in batches of 1,000, adding to local SQLite database on browser
     <a href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API">IndexedDB</a>.</p>
 
 <p>[W.I.P] Writing to the SQLite database is not working at the moment.</p>

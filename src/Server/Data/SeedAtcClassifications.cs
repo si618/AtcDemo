@@ -7,9 +7,9 @@ using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
-public static class SeedAtcData
+public static class SeedAtcClassifications
 {
-    private static readonly ILogger s_log = Log.ForContext(typeof(SeedAtcData));
+    private static readonly ILogger s_log = Log.ForContext(typeof(SeedAtcClassifications));
 
     public static void Seed(IServiceProvider services)
     {
@@ -29,7 +29,7 @@ public static class SeedAtcData
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
-        var dir = Path.GetDirectoryName(typeof(SeedAtcData).Assembly.Location)!;
+        var dir = Path.GetDirectoryName(typeof(SeedAtcClassifications).Assembly.Location)!;
         var file = Path.Combine(dir, "Data", "ATC.json")!;
         if (!File.Exists(file))
         {
@@ -37,9 +37,9 @@ public static class SeedAtcData
         }
         var json = File.ReadAllText(file);
         var records = JsonSerializer.Deserialize<IEnumerable<Atc.Classification>>(json)!;
-        var chemicals = records.Select(chemical => chemical.ConvertFromRecord());
+        var classifications = records.Select(classification => classification.ConvertFromRecord());
         var config = new BulkConfig() { PreserveInsertOrder = true };
-        db.BulkInsert(chemicals.ToList(), config);
+        db.BulkInsert(classifications.ToList(), config);
         db.SaveChanges();
 
         s_log.Information("Seeded {Count:N0} ATC classifications in {Elapsed:N0}ms",

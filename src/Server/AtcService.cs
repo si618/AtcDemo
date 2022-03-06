@@ -5,11 +5,11 @@ using AtcDemo.Shared;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
 
-public class AtcClassificationService : AtcClassificationRpcService.AtcClassificationRpcServiceBase
+public class AtcService : AtcClassificationRpcService.AtcClassificationRpcServiceBase
 {
     private readonly AtcDbContext _db;
 
-    public AtcClassificationService(AtcDbContext db)
+    public AtcService(AtcDbContext db)
     {
         _db = db;
     }

@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 [Route("[controller]")]
 public class AtcController : ControllerBase
 {
-    private readonly AtcClassificationService _service;
+    private readonly AtcService _service;
 
-    public AtcController(AtcClassificationService service)
+    public AtcController(AtcService service)
     {
         _service = service;
     }

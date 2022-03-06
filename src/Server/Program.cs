@@ -28,13 +28,13 @@ builder.Services.AddGrpc();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-builder.Services.AddScoped<AtcClassificationService>();
+builder.Services.AddScoped<AtcService>();
 
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();
 
-SeedAtcData.Seed(app.Services);
+SeedAtcClassifications.Seed(app.Services);
 
 // Allow requests from client
 app.UseCors(cors => cors
@@ -59,7 +59,7 @@ app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseGrpcWeb();
-app.MapGrpcService<AtcClassificationService>().EnableGrpcWeb();
+app.MapGrpcService<AtcService>().EnableGrpcWeb();
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
