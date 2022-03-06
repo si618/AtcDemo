@@ -7,7 +7,7 @@ Experimental code demonstration for displaying and searching [ATC classification
 ## Credits
 
 - Inspired by Steve Sanderson's [Blazor Demo](https://github.com/SteveSandersonMS/BlazeOrbital.git) at [NDC Oslo](https://youtu.be/Rn8psTi8FBk) 🙇‍
-- Bioportal for the [ATC classifications](https://bioportal.bioontology.org/ontologies/ATC?p=summary)
+- National Center for Biomedical Ontology for the [ATC classifications](https://bioportal.bioontology.org/ontologies/ATC?p=summary)
 - [Ross Lovas](https://github.com/rosslovas) for the idea of using a static class around C# record types
 
 ## Install
