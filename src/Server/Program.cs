@@ -34,7 +34,7 @@ var app = builder.Build();
 
 app.UseSerilogRequestLogging();
 
-SeedAtcClassifications.Seed(app.Services);
+SeedAtcData.Seed(app.Services);
 
 // Allow requests from client
 app.UseCors(cors => cors
