@@ -15,8 +15,8 @@ public class AtcController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Atc.Classification> Get()
+    public async Task<IEnumerable<Atc.Classification>> Get()
     {
-        return _service.GetAtcClassifications();
+        return await _service.GetAtcClassifications();
     }
 }

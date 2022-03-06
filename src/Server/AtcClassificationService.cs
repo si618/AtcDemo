@@ -33,14 +33,15 @@ public class AtcClassificationService : AtcClassificationRpcService.AtcClassific
     }
 
     // WebAPI
-    public IEnumerable<Atc.Classification> GetAtcClassifications()
+    public async Task<IEnumerable<Atc.Classification>> GetAtcClassifications()
     {
         var classifications = _db.Classifications
             .AsNoTracking()
             .Include(c => c.Doses)
             .OrderBy(c => c.Code)
             .ThenBy(c => c.Name)
-            .Select(c => c.ConvertFromProtobuf());
-        return classifications;
+            .Select(c => c.ConvertFromProtobuf())
+            .ToListAsync();
+        return await classifications;
     }
 }
