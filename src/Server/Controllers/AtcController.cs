@@ -7,16 +7,16 @@ using Microsoft.AspNetCore.Mvc;
 [Route("[controller]")]
 public class AtcController : ControllerBase
 {
-    private readonly AtcDataService _service;
+    private readonly AtcClassificationService _service;
 
-    public AtcController(AtcDataService service)
+    public AtcController(AtcClassificationService service)
     {
         _service = service;
     }
 
     [HttpGet]
-    public IEnumerable<Atc.Chemical> Get()
+    public IEnumerable<Atc.Classification> Get()
     {
-        return _service.GetAtcChemicals();
+        return _service.GetAtcClassifications();
     }
 }

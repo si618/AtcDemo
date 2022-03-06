@@ -36,13 +36,13 @@ public static class SeedAtcData
             throw new FileNotFoundException("File not found", file);
         }
         var json = File.ReadAllText(file);
-        var records = JsonSerializer.Deserialize<IEnumerable<Atc.Chemical>>(json)!;
+        var records = JsonSerializer.Deserialize<IEnumerable<Atc.Classification>>(json)!;
         var chemicals = records.Select(chemical => chemical.ConvertFromRecord());
         var config = new BulkConfig() { PreserveInsertOrder = true };
         db.BulkInsert(chemicals.ToList(), config);
         db.SaveChanges();
 
-        s_log.Information("Seeded {Count:N0} ATC records in {Elapsed:N0}ms",
-            db.Chemicals.Count(), stopwatch.ElapsedMilliseconds);
+        s_log.Information("Seeded {Count:N0} ATC classifications in {Elapsed:N0}ms",
+            db.Classifications.Count(), stopwatch.ElapsedMilliseconds);
     }
 }

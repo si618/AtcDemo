@@ -2,11 +2,11 @@
 @using AtcDemo.Shared
 @inject HttpClient Http
 
-<PageTitle>ATC Records via WebAPI (Table)</PageTitle>
+<PageTitle>ATC classifications via WebAPI (Table)</PageTitle>
 
-<h4 class="mb-4">ATC Records via WebAPI</h4>
+<h4 class="mb-4">ATC classifications via WebAPI</h4>
 
-@if (chemicals == null)
+@if (classifications == null)
 {
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
@@ -24,13 +24,13 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var chemical in chemicals)
+            @foreach (var classification in classifications)
             {
                 <tr>
-                    <td>@chemical.Code</td>
-                    <td>@chemical.Name</td>
-                    <td class="text-end">@string.Join(" / ", chemical.Doses.Select(d => d.DefinedDailyDose))</td>
-                    <td >@string.Join(" / ", chemical.Doses.Select(d => d.AdministrationRoute))</td>
+                    <td>@classification.Code</td>
+                    <td>@classification.Name</td>
+                    <td class="text-end">@string.Join(" / ", classification.Doses.Select(d => d.DefinedDailyDose))</td>
+                    <td >@string.Join(" / ", classification.Doses.Select(d => d.AdministrationRoute))</td>
                 </tr>
             }
         </tbody>
@@ -38,10 +38,10 @@ else
 }
 
 @code {
-    private Atc.Chemical[]? chemicals;
+    private Atc.Classification[]? classifications;
 
     protected override async Task OnInitializedAsync()
     {
-        chemicals = await Http.GetFromJsonAsync<Atc.Chemical[]>("Atc");
+        classifications = await Http.GetFromJsonAsync<Atc.Classification[]>("Atc");
     }
 }

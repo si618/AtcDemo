@@ -7,9 +7,9 @@
 @inject HttpClient Http
 @*@attribute [Authorize]*@
 
-<PageTitle>ATC Records via WebAPI (Grid)</PageTitle>
+<PageTitle>ATC classifications via WebAPI (Grid)</PageTitle>
 
-<h4 class="mb-4">ATC Records via WebAPI</h4>
+<h4 class="mb-4">ATC classifications via WebAPI</h4>
 
 @if (chemicals is null)
 {
@@ -133,7 +133,7 @@ else
 }
 
 @code {
-	private Atc.Chemical[]? chemicals;
+	private Atc.Classification[]? chemicals;
 
 	[Parameter] public string? SearchName { get; set; }
 
@@ -146,7 +146,7 @@ else
 	string searchName = string.Empty;
 	int minDose = 0, maxDose = 100;
 
-	IQueryable<Atc.Chemical>? GetFilteredAtcRecords()
+	IQueryable<Atc.Classification>? GetFilteredAtcRecords()
 	{
 		if (chemicals is null)
 		{
@@ -196,7 +196,7 @@ else
 
 	protected override async Task OnInitializedAsync()
 	{
-		chemicals = await Http.GetFromJsonAsync<Atc.Chemical[]>("Atc");
+		chemicals = await Http.GetFromJsonAsync<Atc.Classification[]>("Atc");
 	}
 
 	protected override void OnParametersSet()

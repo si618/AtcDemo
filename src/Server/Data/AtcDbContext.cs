@@ -13,21 +13,21 @@ public class AtcDbContext : DbContext
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<AtcChemical>().HasKey(p => p.Id);
+        builder.Entity<AtcClassification>().HasKey(p => p.Id);
         builder.Entity<AtcDose>().HasKey(p => p.Id);
 
-        builder.Entity<AtcChemical>()
+        builder.Entity<AtcClassification>()
             .HasMany(c => c.Doses)
             .WithOne()
-            .HasForeignKey(d => d.ChemicalId);
+            .HasForeignKey(d => d.ClassificationId);
 
-        builder.Entity<AtcChemical>().HasIndex(
-            nameof(AtcChemical.Code),
-            nameof(AtcChemical.Name),
-            nameof(AtcChemical.ModifiedTicks));
+        builder.Entity<AtcClassification>().HasIndex(
+            nameof(AtcClassification.Code),
+            nameof(AtcClassification.Name),
+            nameof(AtcClassification.ModifiedTicks));
     }
 
-    public DbSet<AtcChemical> Chemicals { get; set; } = default!;
+    public DbSet<AtcClassification> Classifications { get; set; } = default!;
 
     public DbSet<AtcDose> Doses { get; set; } = default!;
 }

@@ -1,21 +1,21 @@
 syntax = "proto3";
 option csharp_namespace = "AtcDemo.Shared";
 
-service AtcRecordService {
-    rpc GetAtcRecords (AtcRecordRequest) returns (AtcRecordReply);
+service AtcClassificationRpcService {
+    rpc GetAtcClassifications (AtcClassificationRequest) returns (AtcClassificationReply);
 }
 
-message AtcRecordRequest {
+message AtcClassificationRequest {
     int64 modifiedSinceTicks = 1;
     int32 maxCount = 2;
 }
 
-message AtcRecordReply {
-    repeated AtcChemical chemicals = 1;
+message AtcClassificationReply {
+    repeated AtcClassification classifications = 1;
     int32 modifiedCount = 2;
 }
 
-message AtcChemical {
+message AtcClassification {
     int32 id = 1;
     string code = 2;
     int64 modifiedTicks = 3;
@@ -30,8 +30,15 @@ message AtcChemical {
 
 message AtcDose {
     int32 id = 1;
-    int32 chemicalId = 2;
+    int32 classificationId = 2;
     double definedDailyDose = 3;
     string administrationRoute = 4;
     string unit = 5;
+}
+
+message AtcLevel {
+    int32 id = 1;
+    int32 level = 2;
+    string code = 3;
+    string name = 4;
 }

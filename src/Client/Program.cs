@@ -23,7 +23,7 @@ builder.Services
         client => client.BaseAddress = new Uri(backendOrigin));
 
 // gRPC-Web client with(out) auth
-builder.Services.AddAtcRecordClient((services, options) =>
+builder.Services.AddAtcClassificationClient((services, options) =>
 {
     options.BaseUri = backendOrigin;
     options.MessageHandler = new HttpClientHandler();

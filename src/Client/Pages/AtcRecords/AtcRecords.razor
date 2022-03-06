@@ -16,7 +16,7 @@
 <p>[W.I.P] Writing to the SQLite database is not working at the moment.</p>
 
 <SyncStatus />
-<AtcDetails Record="selectedAtcRecord" OnHide="@(() => { selectedAtcRecord = null; })" />
+<AtcDetails Record="selectedAtcClassification" OnHide="@(() => { selectedAtcClassification = null; })" />
 
 @if (db is null)
 {
@@ -26,7 +26,7 @@
 else
 {
     <div class="records-grid">
-        <Grid Virtualize="true" Items="@GetFilteredAtcRecords()" ItemKey="@(x => x.Code)" ItemSize="35">
+        <Grid Virtualize="true" Items="@GetFilteredAtcClassifications()" ItemKey="@(x => x.Code)" ItemSize="35">
 
             <TemplateColumn Title="Code" SortBy="@(items => items.SortByAscending(x => x.Code))" Class="col-code">
                 <ChildContent>
@@ -45,7 +45,7 @@ else
                             level4 = Array.Empty<string>();
                             level5 = Array.Empty<string>();
                         })">
-                        @foreach (var name in db.Chemicals.Select(x => x.Level1AnatomicalMainGroup).Distinct())
+                        @foreach (var name in db.Classifications.Select(x => x.Level1AnatomicalMainGroup).Distinct())
                         {
                             <option>@name</option>
                         }
@@ -57,7 +57,7 @@ else
                             level4 = Array.Empty<string>();
                             level5 = Array.Empty<string>();
                         })">
-                        @foreach (var name in db.Chemicals.Select(x => x.Level2TherapeuticSubgroup).Distinct())
+                        @foreach (var name in db.Classifications.Select(x => x.Level2TherapeuticSubgroup).Distinct())
                         {
                             <option>@name</option>
                         }
@@ -68,7 +68,7 @@ else
                             level4 = Array.Empty<string>();
                             level5 = Array.Empty<string>();
                         })">
-                        @foreach (var name in db.Chemicals.Select(x => x.Level3PharmacologicalSubgroup).Distinct())
+                        @foreach (var name in db.Classifications.Select(x => x.Level3PharmacologicalSubgroup).Distinct())
                         {
                             <option>@name</option>
                         }
@@ -78,14 +78,14 @@ else
                         {
                             level5 = Array.Empty<string>();
                         })">
-                        @foreach (var name in db.Chemicals.Select(x => x.Level4ChemicalSubgroup).Distinct())
+                        @foreach (var name in db.Classifications.Select(x => x.Level4ChemicalSubgroup).Distinct())
                         {
                             <option>@name</option>
                         }
                     </select>
                     <p class="small">Level 5 Chemical Substance (@level5.Length)</p>
                     <select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level5">
-                        @foreach (var name in db.Chemicals.Select(x => x.Level5ChemicalSubstance).Distinct())
+                        @foreach (var name in db.Classifications.Select(x => x.Level5ChemicalSubstance).Distinct())
                         {
                             <option>@name</option>
                         }
@@ -102,7 +102,7 @@ else
             </TemplateColumn>
 
             <PropertyColumn Title="Name" Property="@(x => x.Name)" Class="col-name"
-                OnCellClicked="@((AtcChemical record) => { selectedAtcRecord = record; })">
+                OnCellClicked="@((AtcClassification classification) => { selectedAtcClassification = classification; })">
                 <ColumnOptions>
                     <input @bind="searchName" @bind:event="oninput" type="search" placeholder="Search..." />
                 </ColumnOptions>
@@ -110,13 +110,14 @@ else
 
         </Grid>
         <div class="status-bar">
-            Showing @GetFilteredAtcRecords()?.Count().ToString("N0") items
+            Showing @GetFilteredAtcClassifications()?.Count().ToString("N0") items
         </div>
     </div>
 }
 
 @code {
     AtcClientDbContext? db;
+    AtcClassification? selectedAtcClassification;
 
     [Parameter] public string? SearchName { get; set; }
 
@@ -128,16 +129,15 @@ else
     string[] level5 = Array.Empty<string>();
     string searchName = string.Empty;
     int minDose = 0, maxDose = 10000;
-    AtcChemical? selectedAtcRecord;
 
-    IQueryable<AtcChemical>? GetFilteredAtcRecords()
+    IQueryable<AtcClassification>? GetFilteredAtcClassifications()
     {
         if (db is null)
         {
             return null;
         }
 
-        var result = db.Chemicals.AsNoTracking().AsQueryable();
+        var result = db.Classifications.AsNoTracking().AsQueryable();
         if (!string.IsNullOrEmpty(searchName))
         {
             result = result.Where(x => EF.Functions.Like(x.Name, searchName.Replace("%", "\\%") + "%", "\\"));

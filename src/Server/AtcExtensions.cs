@@ -5,7 +5,7 @@ using AtcDemo.Shared;
 
 public static class AtcExtensions
 {
-    public static Atc.Chemical ConvertFromProtobuf(this AtcChemical chemical)
+    public static Atc.Classification ConvertFromProtobuf(this AtcClassification chemical)
     {
         var doses = chemical.Doses.Select(c => new Atc.Dose(
             c.DefinedDailyDose,
@@ -17,7 +17,7 @@ public static class AtcExtensions
             chemical.Level3PharmacologicalSubgroup,
             chemical.Level4ChemicalSubgroup,
             chemical.Level5ChemicalSubstance);
-        var result = new Atc.Chemical(
+        var result = new Atc.Classification(
             chemical.Code,
             chemical.Name,
             doses,
@@ -25,7 +25,7 @@ public static class AtcExtensions
         return result;
     }
 
-    public static AtcChemical ConvertFromRecord(this Atc.Chemical chemical)
+    public static AtcClassification ConvertFromRecord(this Atc.Classification chemical)
     {
         var textInfo = new CultureInfo("en-US", false).TextInfo;
         var doses = chemical.Doses.Select(c => new AtcDose()
@@ -34,7 +34,7 @@ public static class AtcExtensions
             AdministrationRoute = c.AdministrationRoute,
             Unit = c.Unit
         });
-        var result = new AtcChemical()
+        var result = new AtcClassification()
         {
             Code = chemical.Code,
             Name = textInfo.ToTitleCase(chemical.Name).Replace(" And ", " and "),

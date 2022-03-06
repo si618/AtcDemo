@@ -4,7 +4,7 @@ namespace AtcDemo.Shared;
 /// Respresentation of an ATC classification.
 /// </summary>
 /// <remarks>
-/// Used for mapping of ATC.json schema into SQLite database, WebAPI DTO and display in Razor.
+/// Used for mapping of json file into SQLite database, WebAPI DTO and UI in Razor.
 /// </remarks>
 public static class Atc
 {
@@ -15,17 +15,17 @@ public static class Atc
     /// <param name="Name"></param>
     /// <param name="Doses"></param>
     /// <param name="Levels"></param>
-    public record Chemical(string Code, string Name, IEnumerable<Dose> Doses, Levels Levels);
+    public record Classification(string Code, string Name, IEnumerable<Dose> Doses, Levels Levels);
 
     /// <summary>
-    /// Each drug can have zero or more doses defined.
+    /// The defined daily dose and administration route for a drug.
     /// </summary>
     /// <param name="DefinedDailyDose"></param>
     /// <param name="AdministrationRoute"></param>
     public record Dose(double DefinedDailyDose, string AdministrationRoute, string Unit);
 
     /// <summary>
-    /// The different groups associated with the drug.
+    /// The five levels associated with the drug.
     /// </summary>
     /// <param name="Level1AnatomicalMainGroup"></param>
     /// <param name="Level2TherapeuticSubgroup"></param>

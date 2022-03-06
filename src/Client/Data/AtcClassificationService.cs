@@ -5,9 +5,9 @@ using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
 using Microsoft.EntityFrameworkCore;
 
-public static class AtcRecordServices
+public static class AtcClassificationService
 {
-    public static void AddAtcRecordClient(
+    public static void AddAtcClassificationClient(
         this IServiceCollection serviceCollection,
         Action<IServiceProvider,
         AtcClientOptions> configure)
@@ -25,7 +25,7 @@ public static class AtcRecordServices
                     HttpClient = httpClient,
                     MaxReceiveMessageSize = null
                 });
-            return new AtcRecordService.AtcRecordServiceClient(channel);
+            return new AtcClassificationRpcService.AtcClassificationRpcServiceClient(channel);
         });
     }
 

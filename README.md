@@ -44,7 +44,7 @@ Microsoft (R) Build Engine version 17.0.0+c9eb9dd64 for .NET
 
 > dotnet run
 Building...
-[22:22:22 INF] Seeded 4,326 ATC records in 692ms
+[22:22:22 INF] Seeded 4,326 ATC classifications in 497ms
 [22:22:22 INF] Now listening on: https://localhost:20222
 ...
 ```

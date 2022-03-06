@@ -8,11 +8,11 @@
 @implements IDisposable
 @*@attribute [Authorize]*@
 
-<PageTitle>ATC Records via gRPC (Grid)</PageTitle>
+<PageTitle>ATC classifications via gRPC (Grid)</PageTitle>
 
-<h4 class="mb-4">ATC Records via gRPC</h4>
+<h4 class="mb-4">ATC classifications via gRPC</h4>
 
-@if (chemicals is null)
+@if (classifications is null)
 {
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
@@ -21,7 +21,7 @@
 else
 {
 	<div class="records-grid">
-		<Grid Virtualize="true" Items="@GetFilteredAtcRecords()" ItemKey="@(x => x.Code)" ItemSize="50">
+		<Grid Virtualize="true" Items="@GetFilteredAtcClassifications()" ItemKey="@(x => x.Code)" ItemSize="50">
 
 			<TemplateColumn Title="Code" SortBy="@(items => items.SortByAscending(x => x.Code))" Class="col-code">
 				<ChildContent>@context.Code</ChildContent>
@@ -37,7 +37,7 @@ else
 										level4 = Array.Empty<string>();
 										level5 = Array.Empty<string>();
 									})">
-									@foreach (var name in chemicals.Select(x => x.Level1AnatomicalMainGroup).Distinct())
+									@foreach (var name in classifications.Select(x => x.Level1AnatomicalMainGroup).Distinct())
 									{
 										<option>@name</option>
 									}
@@ -51,7 +51,7 @@ else
 										level4 = Array.Empty<string>();
 										level5 = Array.Empty<string>();
 									})">
-									@foreach (var name in chemicals.Select(x => x.Level2TherapeuticSubgroup).Distinct())
+									@foreach (var name in classifications.Select(x => x.Level2TherapeuticSubgroup).Distinct())
 									{
 										<option>@name</option>
 									}
@@ -64,7 +64,7 @@ else
 										level4 = Array.Empty<string>();
 										level5 = Array.Empty<string>();
 									})">
-									@foreach (var name in chemicals.Select(x => x.Level3PharmacologicalSubgroup).Distinct())
+									@foreach (var name in classifications.Select(x => x.Level3PharmacologicalSubgroup).Distinct())
 									{
 										<option>@name</option>
 									}
@@ -76,7 +76,7 @@ else
 									{
 										level5 = Array.Empty<string>();
 									})">
-									@foreach (var name in chemicals.Select(x => x.Level4ChemicalSubgroup).Distinct())
+									@foreach (var name in classifications.Select(x => x.Level4ChemicalSubgroup).Distinct())
 									{
 										<option>@name</option>
 									}
@@ -85,7 +85,7 @@ else
 							 <div class="col">
 								<p class="small">Chemical Substance (@level5.Length)</p>
 								<select multiple class="w-64 bg-gray-100 border-grey-500 border my-4" @bind="level5">
-									@foreach (var name in chemicals.Select(x => x.Level5ChemicalSubstance).Distinct())
+									@foreach (var name in classifications.Select(x => x.Level5ChemicalSubstance).Distinct())
 									{
 										<option>@name</option>
 									}
@@ -128,13 +128,13 @@ else
 
 		</Grid>
 		<div class="status-bar">
-			Showing @GetFilteredAtcRecords()?.Count().ToString("N0") items
+			Showing @GetFilteredAtcClassifications()?.Count().ToString("N0") items
 		</div>
 	</div>
 }
 
 @code {
-    private AtcChemical[]? chemicals;
+    private AtcClassification[]? classifications;
 
     [Parameter] public string? SearchName { get; set; }
 
@@ -147,14 +147,14 @@ else
     string searchName = string.Empty;
     int minDose = 0, maxDose = 100;
 
-    IQueryable<AtcChemical>? GetFilteredAtcRecords()
+    IQueryable<AtcClassification>? GetFilteredAtcClassifications()
     {
-        if (chemicals is null)
+        if (classifications is null)
         {
             return null;
         }
 
-        var result = chemicals.Select(c => c);
+        var result = classifications.AsQueryable();
         if (!string.IsNullOrEmpty(searchName))
         {
             result = result.Where(x => x.Name.Contains(searchName, StringComparison.InvariantCultureIgnoreCase));
@@ -197,7 +197,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        chemicals = await DataSynchronizer.GetAtcRecords();
+        classifications = await DataSynchronizer.GetAtcClassications();
         DataSynchronizer.OnUpdate += StateHasChanged;
 	}
 

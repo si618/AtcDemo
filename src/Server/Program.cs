@@ -28,7 +28,7 @@ builder.Services.AddGrpc();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-builder.Services.AddScoped<AtcDataService>();
+builder.Services.AddScoped<AtcClassificationService>();
 
 var app = builder.Build();
 
@@ -59,7 +59,7 @@ app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseGrpcWeb();
-app.MapGrpcService<AtcDataService>().EnableGrpcWeb();
+app.MapGrpcService<AtcClassificationService>().EnableGrpcWeb();
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");

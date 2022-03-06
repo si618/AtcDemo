@@ -7,7 +7,6 @@ using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.JSInterop;
 using Serilog;
-using static AtcDemo.Shared.AtcRecordService;
 
 // This service synchronizes the Sqlite DB with both the backend server and the browser's IndexedDb storage
 class DataSynchronizer
@@ -19,13 +18,13 @@ class DataSynchronizer
 
     private readonly Task _firstTimeSetupTask;
     private readonly IDbContextFactory<AtcClientDbContext> _dbContextFactory;
-    private readonly AtcRecordServiceClient _service;
+    private readonly AtcClassificationRpcService.AtcClassificationRpcServiceClient _service;
     private bool _isSynchronizing;
 
     public DataSynchronizer(
         IJSRuntime js,
         IDbContextFactory<AtcClientDbContext> dbContextFactory,
-        AtcRecordServiceClient service)
+        AtcClassificationRpcService.AtcClassificationRpcServiceClient service)
     {
         _dbContextFactory = dbContextFactory;
         _service = service;
@@ -85,36 +84,36 @@ class DataSynchronizer
             db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 
             // Begin fetching any updates to the dataset from the backend server
-            var mostRecentUpdate = db.Chemicals.OrderByDescending(p => p.ModifiedTicks).FirstOrDefault()?.ModifiedTicks;
+            var mostRecentUpdate = db.Classifications.OrderByDescending(p => p.ModifiedTicks).FirstOrDefault()?.ModifiedTicks;
 
             var connection = db.Database.GetDbConnection();
             connection.Open();
 
             while (true)
             {
-                var request = new AtcRecordRequest
+                var request = new AtcClassificationRequest
                 {
                     MaxCount = FetchMaxCount,
                     ModifiedSinceTicks = mostRecentUpdate ?? -1
                 };
-                var response = await _service.GetAtcRecordsAsync(request);
-                var syncRemaining = response.ModifiedCount - response.Chemicals.Count;
-                SyncCompleted += response.Chemicals.Count;
+                var response = await _service.GetAtcClassificationsAsync(request);
+                var syncRemaining = response.ModifiedCount - response.Classifications.Count;
+                SyncCompleted += response.Classifications.Count;
                 SyncTotal = SyncCompleted + syncRemaining;
 
-                if (response.Chemicals.Count == 0)
+                if (response.Classifications.Count == 0)
                 {
                     break;
                 }
                 else
                 {
-                    mostRecentUpdate = response.Chemicals.Last().ModifiedTicks;
+                    mostRecentUpdate = response.Classifications.Last().ModifiedTicks;
                     var config = new BulkConfig() { PreserveInsertOrder = true };
-                    db.BulkInsertOrUpdate(response.Chemicals.ToList(), config);
+                    db.BulkInsertOrUpdate(response.Classifications.ToList(), config);
                     db.SaveChanges();
 
                     s_log.Information("Saved {Count:N0} ATC records in {Elapsed:N0}ms",
-                        db.Chemicals.Count(), stopwatch.ElapsedMilliseconds);
+                        db.Classifications.Count(), stopwatch.ElapsedMilliseconds);
 
                     OnUpdate?.Invoke();
                 }
@@ -132,9 +131,9 @@ class DataSynchronizer
     }
 
     // TODO: Workaround for SQLite error on browser
-    public async Task<AtcChemical[]> GetAtcRecords()
+    public async Task<AtcClassification[]> GetAtcClassications()
     {
-        var records = new List<AtcChemical>();
+        var records = new List<AtcClassification>();
         try
         {
             var stopwatch = new Stopwatch();
@@ -143,17 +142,17 @@ class DataSynchronizer
             SyncCompleted = 0;
             SyncTotal = 0;
 
-            var request = new AtcRecordRequest
+            var request = new AtcClassificationRequest
             {
                 MaxCount = 10_000,
                 ModifiedSinceTicks = -1
             };
-            var response = await _service.GetAtcRecordsAsync(request);
-            var syncRemaining = response.ModifiedCount - response.Chemicals.Count;
-            SyncCompleted += response.Chemicals.Count;
+            var response = await _service.GetAtcClassificationsAsync(request);
+            var syncRemaining = response.ModifiedCount - response.Classifications.Count;
+            SyncCompleted += response.Classifications.Count;
             SyncTotal = SyncCompleted + syncRemaining;
 
-            records.AddRange(response.Chemicals);
+            records.AddRange(response.Classifications);
             s_log.Information("gRPC call featch {Count:N0} ATC records in {Elapsed:N0}ms",
                 records.Count, stopwatch.ElapsedMilliseconds);
 
